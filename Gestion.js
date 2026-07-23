@@ -65,9 +65,22 @@ function Registrar(callback) {
 
     setTimeout(function(){
         Habitaciones.push(Habitacion);
-        console.log("Habitación registrada, Número de HAbitación: " + Numero);
+        console.log("Habitación registrada, Número de Habitación: " + Numero);
         callback();
     }, 2000);
+}
+
+function Mostrar(callback){
+    console.log("---------- Habitaciones ----------");
+    Habitaciones.forEach(Habitacion => {
+        console.log(`No. de Habitación: ${Habitacion.Numero} \n`+
+            `Tipo de Habitación: ${Habitacion.Tipo} \n`+
+            `Precio: Q. ${Habitacion.precioNoche} \n`+
+            `Estado: ${Habitacion.Estado} \n`+
+            `Huésped: ${Habitacion.Huesped} \n`
+        );
+    });
+    callback();
 }
 
 Menu();
