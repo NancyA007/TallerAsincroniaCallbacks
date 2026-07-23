@@ -14,7 +14,6 @@ function Menu(){
 
     switch(Opcion){
         case "1":
-            console.log("Registro de Habitación");
             Registrar(Menu);
             break;
         case "2":
@@ -65,7 +64,7 @@ function Registrar(callback) {
 
     setTimeout(function(){
         Habitaciones.push(Habitacion);
-        console.log("Habitación registrada, Número de Habitación: " + Numero);
+        console.log("Habitación registrada correctamente");
         callback();
     }, 2000);
 }
@@ -81,6 +80,29 @@ function Mostrar(callback){
         );
     });
     callback();
+}
+
+function Buscar(callback){
+    let Numero = parseInt(prompt("Ingresar Número de la Habitación: "));
+    console.log("Consultando Bases de Datos del Hotel...");
+
+    setTimeout(function(){
+        let habitacionBuscada = Habitaciones.find(Habitacion => {
+            return Habitacion.Numero === Numero;
+        });
+        if (habitacionBuscada){
+            console.log("-- Habitación Encontrada --");
+            console.log(`No. de Habitación: ${habitacionBuscada.Numero} \n`+
+                `Tipo de Habitación: ${habitacionBuscada.Tipo} \n`+
+                `Precio: Q. ${habitacionBuscada.precioNoche} \n`+
+                `Estado: ${habitacionBuscada.Estado} \n`+
+                `Huésped: ${habitacionBuscada.Huesped} \n`
+            );
+        } else {
+            console.log("Habitación no encontrada");
+        }
+        callback();
+    }, 3000);
 }
 
 Menu();
