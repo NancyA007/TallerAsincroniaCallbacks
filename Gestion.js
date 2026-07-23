@@ -38,4 +38,36 @@ function Menu(){
     }
 }
 
+function Registrar(callback) {
+    let Numero = parseInt(prompt("Ingrese el Número de Habitación: "));
+    let Tipo = prompt("Ingrese el Tipo de Habitación: \n"+
+        "1. Sencilla \n"+
+        "2. Doble \n"+
+        "3. Suite \n"
+    );
+    let precioNoche = parseFloat(prompt("Ingrese el Precio de la Habitación: "));
+    let Estado = prompt("Ingrese el Estado de la Habitación: \n"+
+        "1. Libre \n"+
+        "2. Ocupada \n"+
+        "3. Limpieza \n"
+    );
+    let Huesped = prompt("Ingrese el Nombre del Huésped: ");
+
+    let Habitacion = {
+        Numero,
+        Tipo,
+        precioNoche,
+        Estado,
+        Huesped,
+    };
+
+    console.log ("Validando Información de la Habitación...");
+
+    setTimeout(function(){
+        Habitaciones.push(Habitacion);
+        console.log("Habitación registrada, Número de HAbitación: " + Numero);
+        callback();
+    }, 2000);
+}
+
 Menu();
