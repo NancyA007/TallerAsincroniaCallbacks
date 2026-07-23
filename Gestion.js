@@ -105,4 +105,37 @@ function Buscar(callback){
     }, 3000);
 }
 
+function Actualizar(callback) {
+    let Numero = parseInt(prompt("Ingresar Número de la Habitación: "));
+    console.log("Consultando Bases de Datos del Hotel...");
+
+    setTimeout(function() {
+        let habitacionBuscada = Habitaciones.find(Habitacion => {
+            return Habitacion.Numero === Numero;
+        });
+
+        if (habitacionBuscada) {
+            let nuevoEstado = prompt("Ingrese nuevo Estado de la Habitación (Ocupada, Libre, Limpieza):");
+            let Huesped = "";
+
+            if (nuevoEstado.toLowerCase() === "ocupada") {
+                Huesped = prompt("Ingrese Nombre del Huésped: ");
+            } else {
+                Huesped = "";
+            }
+
+            habitacionBuscada.Estado = nuevoEstado;
+            habitacionBuscada.Huesped = Huesped;
+
+            console.log("Estado Actualizado: " + habitacionBuscada.Estado);
+            console.log("Nombre del Huésped: " + habitacionBuscada.Huesped);
+
+        } else {
+            console.log("Habitación no encontrada");
+        }
+
+        callback();
+    }, 3000);
+}
+
 Menu();
