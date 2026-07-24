@@ -50,10 +50,10 @@ function Registrar(callback) {
         "2. Ocupada \n"+
         "3. Limpieza \n"
     );
-    if (Estado.toLowerCase() === "Ocupada") {
-        let Huesped = prompt("Ingrese el Nombre del Huésped: ");
+    if (Estado.toLowerCase() === "ocupada") {
+        var Huesped = prompt("Ingrese el Nombre del Huésped: ");
     } else{
-        let Huesped = "";
+        var Huesped = " ";
     }
 
     let Habitacion = {
@@ -124,12 +124,12 @@ function Actualizar(callback) {
                 "2. Ocupada \n"+
                 "3. Limpieza \n"
             );
-            let Huesped = "";
+            let Huesped = " ";
 
             if (nuevoEstado.toLowerCase() === "ocupada") {
                 Huesped = prompt("Ingrese Nombre del Huésped: ");
             } else {
-                Huesped = "";
+                Huesped = " ";
             }
 
             habitacionBuscada.Estado = nuevoEstado;
@@ -144,6 +144,23 @@ function Actualizar(callback) {
 
         callback();
     }, 3000);
+}
+
+function Eliminar(callback){
+    let Numero = parseInt(prompt("Ingresar Número de la Habitación a Eliminar: "));
+
+    let Indice = Habitaciones.findIndex(Habitacion => {
+        return Habitacion.Numero === Numero;
+    });
+
+    if (Indice !== -1){
+        Habitaciones.splice(Indice, 1);
+        console.log("Habitación Eliminada: " + Numero);
+    } else {
+        console.log("Habitación no Encontrada...");
+    }
+    
+    callback();
 }
 
 Menu();
