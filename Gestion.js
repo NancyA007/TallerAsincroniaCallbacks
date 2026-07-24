@@ -1,4 +1,4 @@
-// CRUD - Gestión de HAbitaciones de Hotel
+// CRUD - Gestión de Habitaciones de Hotel
 let Habitaciones = [];
 
 function Menu(){
@@ -50,7 +50,11 @@ function Registrar(callback) {
         "2. Ocupada \n"+
         "3. Limpieza \n"
     );
-    let Huesped = prompt("Ingrese el Nombre del Huésped: ");
+    if (Estado.toLowerCase() === "Ocupada") {
+        let Huesped = prompt("Ingrese el Nombre del Huésped: ");
+    } else{
+        let Huesped = "";
+    }
 
     let Habitacion = {
         Numero,
@@ -115,7 +119,11 @@ function Actualizar(callback) {
         });
 
         if (habitacionBuscada) {
-            let nuevoEstado = prompt("Ingrese nuevo Estado de la Habitación (Ocupada, Libre, Limpieza):");
+            let nuevoEstado = prompt("Ingrese el Estado de la Habitación: \n"+
+                "1. Libre \n"+
+                "2. Ocupada \n"+
+                "3. Limpieza \n"
+            );
             let Huesped = "";
 
             if (nuevoEstado.toLowerCase() === "ocupada") {
