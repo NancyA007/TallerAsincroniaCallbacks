@@ -75,18 +75,23 @@ function Registrar(callback) {
 
 function Mostrar(callback){
     console.log("---------- Habitaciones ----------");
-    Habitaciones.forEach(Habitacion => {
-        if (Habitacion) {
-            console.log(`No. de Habitación: ${Habitacion.Numero} \n`+
-                `Tipo de Habitación: ${Habitacion.Tipo} \n`+
-                `Precio: Q. ${Habitacion.precioNoche} \n`+
-                `Estado: ${Habitacion.Estado} \n`+
-                `Huésped: ${Habitacion.Huesped} \n`
-            );
-        } else if (Habitacion.length === 0) {
-            console.log("No existen registros");
-        }
-    });
+    
+    if (!Habitaciones || Habitaciones.length === 0) {
+        console.log("No existen registros");
+    } else {
+        Habitaciones.forEach(Habitacion => {
+            if (Habitacion) {
+                console.log(
+                    `No. de Habitación: ${Habitacion.Numero} \n` +
+                    `Tipo de Habitación: ${Habitacion.Tipo} \n` +
+                    `Precio: Q. ${Habitacion.precioNoche} \n` +
+                    `Estado: ${Habitacion.Estado} \n` +
+                    `Huésped: ${Habitacion.Huesped} \n`
+                );
+            }
+        });
+    }
+
     callback();
 }
 
