@@ -1,4 +1,4 @@
-// CRUD - Gestión de HAbitaciones de Hotel
+// CRUD - Gestión de Habitaciones de Hotel
 let Habitaciones = [];
 
 function Menu(){
@@ -14,7 +14,6 @@ function Menu(){
 
     switch(Opcion){
         case "1":
-            console.log("Registro de Habitación");
             Registrar(Menu);
             break;
         case "2":
@@ -51,7 +50,11 @@ function Registrar(callback) {
         "2. Ocupada \n"+
         "3. Limpieza \n"
     );
-    let Huesped = prompt("Ingrese el Nombre del Huésped: ");
+    if (Estado.toLowerCase() === "ocupada") {
+        var Huesped = prompt("Ingrese el Nombre del Huésped: ");
+    } else{
+        var Huesped = " ";
+    }
 
     let Habitacion = {
         Numero,
@@ -65,21 +68,107 @@ function Registrar(callback) {
 
     setTimeout(function(){
         Habitaciones.push(Habitacion);
-        console.log("Habitación registrada, Número de Habitación: " + Numero);
+        console.log("Habitación registrada correctamente");
         callback();
     }, 2000);
 }
 
 function Mostrar(callback){
     console.log("---------- Habitaciones ----------");
-    Habitaciones.forEach(Habitacion => {
-        console.log(`No. de Habitación: ${Habitacion.Numero} \n`+
-            `Tipo de Habitación: ${Habitacion.Tipo} \n`+
-            `Precio: Q. ${Habitacion.precioNoche} \n`+
-            `Estado: ${Habitacion.Estado} \n`+
-            `Huésped: ${Habitacion.Huesped} \n`
-        );
+    
+    if (!Habitaciones || Habitaciones.length === 0) {
+        console.log("No existen registros");
+    } else {
+        Habitaciones.forEach(Habitacion => {
+            if (Habitacion) {
+                console.log(
+                    `No. de Habitación: ${Habitacion.Numero} \n` +
+                    `Tipo de Habitación: ${Habitacion.Tipo} \n` +
+                    `Precio: Q. ${Habitacion.precioNoche} \n` +
+                    `Estado: ${Habitacion.Estado} \n` +
+                    `Huésped: ${Habitacion.Huesped} \n`
+                );
+            }
+        });
+    }
+
+    callback();
+}
+
+function Buscar(callback){
+    let Numero = parseInt(prompt("Ingresar Número de la Habitación: "));
+    console.log("Consultando Bases de Datos del Hotel...");
+
+    setTimeout(function(){
+        let habitacionBuscada = Habitaciones.find(Habitacion => {
+            return Habitacion.Numero === Numero;
+        });
+        if (habitacionBuscada){
+            console.log("-- Habitación Encontrada --");
+            console.log(`No. de Habitación: ${habitacionBuscada.Numero} \n`+
+                `Tipo de Habitación: ${habitacionBuscada.Tipo} \n`+
+                `Precio: Q. ${habitacionBuscada.precioNoche} \n`+
+                `Estado: ${habitacionBuscada.Estado} \n`+
+                `Huésped: ${habitacionBuscada.Huesped} \n`
+            );
+        } else {
+            console.log("Habitación no encontrada");
+        }
+        callback();
+    }, 3000);
+}
+
+function Actualizar(callback) {
+    let Numero = parseInt(prompt("Ingresar Número de la Habitación: "));
+    console.log("Consultando Bases de Datos del Hotel...");
+
+    setTimeout(function() {
+        let habitacionBuscada = Habitaciones.find(Habitacion => {
+            return Habitacion.Numero === Numero;
+        });
+
+        if (habitacionBuscada) {
+            let nuevoEstado = prompt("Ingrese el Estado de la Habitación: \n"+
+                "1. Libre \n"+
+                "2. Ocupada \n"+
+                "3. Limpieza \n"
+            );
+            let Huesped = " ";
+
+            if (nuevoEstado.toLowerCase() === "ocupada") {
+                Huesped = prompt("Ingrese Nombre del Huésped: ");
+            } else {
+                Huesped = " ";
+            }
+
+            habitacionBuscada.Estado = nuevoEstado;
+            habitacionBuscada.Huesped = Huesped;
+
+            console.log("Estado Actualizado: " + habitacionBuscada.Estado);
+            console.log("Nombre del Huésped: " + habitacionBuscada.Huesped);
+
+        } else {
+            console.log("Habitación no encontrada");
+        }
+
+        callback();
+    }, 3000);
+}
+
+function Eliminar(callback){
+    let Numero = parseInt(prompt("Ingresar Número de la Habitación a Eliminar: "));
+
+    let Indice = Habitaciones.findIndex(Habitacion => {
+        return Habitacion.Numero === Numero;
     });
+
+    if (Indice !== -1){
+        Habitaciones.splice(Indice, 1);
+        console.log("Habitación Eliminada: " + Numero);
+    } else {
+        console.log("Habitación no Encontrada...");
+    }
+
     callback();
 }
 
